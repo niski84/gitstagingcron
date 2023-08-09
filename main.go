@@ -79,6 +79,8 @@ func transferCommit(repoPath string, workBranch string, stagingBranch string) {
 			fmt.Println("Skipping previously transferred commit: " + commitHash)
 			continue
 		}
+		// change to this format instead of git checkout
+		// git fetch . <commit-hash>:<target-branch>
 
 		// Checkout staging
 		runCommand(repoPath, nil, "git", "checkout", stagingBranch)
@@ -95,7 +97,7 @@ func transferCommit(repoPath string, workBranch string, stagingBranch string) {
 		runCommand(repoPath, nil, "git", "commit", "--amend", "--no-edit", "--date", currentDate)
 
 		// Push to remote
-		runCommand(repoPath, nil, "git", "push")
+		runCommand(repoPath, nil, "git", "push", "--set-upstream", "origin", stagingBranch, ":", stagingBranch)
 
 		// Change back to work branch
 		runCommand(repoPath, nil, "git", "checkout", workBranch)
@@ -146,3 +148,5 @@ func main() {
 
 //  to run:
 // go run . --repo /path/to/repo --work-branch feature --staging-branch staging --min-delay 1 --max-delay 2
+
+// git branch --set-upstream-to=origin/<branch-name> <branch-name>
