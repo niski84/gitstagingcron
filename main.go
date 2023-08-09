@@ -97,6 +97,9 @@ func transferCommit(repoPath string, workBranch string, stagingBranch string) {
 		// Push to remote
 		runCommand(repoPath, nil, "git", "push")
 
+		// Change back to work branch
+		runCommand(repoPath, nil, "git", "checkout", workBranch)
+
 		fmt.Println("Transferred commit: " + commitHash)
 
 		// Write transferred commit SHA to file
