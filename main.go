@@ -97,7 +97,7 @@ func transferCommit(repoPath string, workBranch string, stagingBranch string) {
 		runCommand(repoPath, nil, "git", "commit", "--amend", "--no-edit", "--date", currentDate)
 
 		// Push to remote
-		runCommand(repoPath, nil, "git", "push", "--set-upstream", "origin", stagingBranch, ":", stagingBranch)
+		runCommand(repoPath, nil, "git", "push", "--set-upstream", "origin", stagingBranch+":"+stagingBranch)
 
 		// Change back to work branch
 		runCommand(repoPath, nil, "git", "checkout", workBranch)
