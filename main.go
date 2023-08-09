@@ -133,13 +133,15 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	for {
-		// Call the transferCommit function with the command line arguments
-		transferCommit(*repoPathPtr, *workBranchPtr, *stagingBranchPtr)
 
 		// Random sleep interval between 45 minutes to 80 minutes
 		sleepDuration := time.Minute * time.Duration(rand.Intn(*maxDelayPtr-*minDelayPtr)+*minDelayPtr)
 		fmt.Printf("Sleeping for %v\n", sleepDuration)
 		time.Sleep(sleepDuration)
+
+		// Call the transferCommit function with the command line arguments
+		transferCommit(*repoPathPtr, *workBranchPtr, *stagingBranchPtr)
+
 	}
 }
 
