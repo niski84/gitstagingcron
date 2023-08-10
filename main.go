@@ -134,9 +134,14 @@ func main() {
 
 	for {
 
-		// Random sleep interval between 45 minutes to 80 minutes
+		// Random sleep interval
 		sleepDuration := time.Minute * time.Duration(rand.Intn(*maxDelayPtr-*minDelayPtr)+*minDelayPtr)
-		fmt.Printf("Sleeping for %v\n", sleepDuration)
+
+		// Compute the time when the sleep will end
+		endTime := time.Now().Add(sleepDuration)
+
+		// Print the sleep duration and the end time in 12-hour clock format
+		fmt.Printf("Sleeping for %v. Next commit will be at %s\n", sleepDuration, endTime.Format("03:04 PM"))
 		time.Sleep(sleepDuration)
 
 		// Call the transferCommit function with the command line arguments
